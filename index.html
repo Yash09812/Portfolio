@@ -18,7 +18,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -34,18 +34,25 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 111, 97, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(57, 255, 20, 0.12) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
+            animation: backgroundShift 15s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(-20px) translateY(-20px); }
+            66% { transform: translateX(20px) translateY(10px); }
         }
         
         /* Header Styles */
         .header {
-            background: rgba(35, 35, 35, 0.95);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
             position: fixed;
             top: 0;
             width: 100%;
@@ -58,22 +65,25 @@
         }
         
         .header.scrolled {
-            background: rgba(20, 20, 20, 0.98);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: rgba(5, 5, 5, 0.98);
+            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.2);
+            border-bottom-color: rgba(255, 0, 128, 0.4);
         }
         
         .name {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            background: linear-gradient(135deg, #00ffff, #ff0080, #39ff14);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             transition: all 0.3s ease;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
         
         .name:hover {
             transform: scale(1.05);
+            filter: brightness(1.2);
         }
         
         .nav-options ul {
@@ -91,6 +101,7 @@
             padding: 8px 16px;
             border-radius: 20px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
         }
         
         .nav-options ul li a::before {
@@ -100,7 +111,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 111, 97, 0.2), rgba(120, 119, 198, 0.2));
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 128, 0.2));
             border-radius: 20px;
             opacity: 0;
             transform: scale(0.8);
@@ -108,8 +119,10 @@
         }
         
         .nav-options ul li a:hover {
-            color: #ffffff;
+            color: #00ffff;
             transform: translateY(-2px);
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
         }
         
         .nav-options ul li a:hover::before {
@@ -128,10 +141,11 @@
         .hamburger span {
             height: 2px;
             width: 25px;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            background: linear-gradient(135deg, #00ffff, #ff0080);
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: center;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         
         /* Main Hero Section */
@@ -142,7 +156,72 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             position: relative;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid;
+            border-image: linear-gradient(135deg, #00ffff, #ff0080, #39ff14) 1;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.4),
+                0 0 60px rgba(255, 0, 128, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 128, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 255, 0.6),
+                0 0 80px rgba(255, 0, 128, 0.4);
+        }
+
+        .profile-image:hover::before {
+            opacity: 1;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Placeholder for profile image */
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 128, 0.1));
+            font-size: 4rem;
+            color: #00ffff;
+            font-weight: bold;
         }
         
         .main::before {
@@ -152,7 +231,7 @@
             left: 50%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255, 111, 97, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             animation: pulse 4s ease-in-out infinite;
@@ -163,17 +242,25 @@
             0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
             50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
         }
+
+        .greeting {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            animation: slideInUp 1s ease-out;
+        }
         
         .main h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff, #cccccc);
+            background: linear-gradient(135deg, #00ffff, #ff0080, #39ff14);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: slideInUp 1s ease-out;
+            animation: slideInUp 1s ease-out 0.1s both;
             letter-spacing: -0.02em;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
         }
         
         .main p {
@@ -185,21 +272,40 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
         
         .main a {
             display: inline-block;
-            padding: 16px 40px;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            padding: 16px 32px;
             color: white;
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: slideInUp 1s ease-out 0.4s both;
-            box-shadow: 0 10px 30px rgba(255, 111, 97, 0.3);
             position: relative;
             overflow: hidden;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ffff, #ff0080);
+            border-image: linear-gradient(135deg, #00ffff, #ff0080) 1;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-image: linear-gradient(135deg, #39ff14, #00ffff) 1;
+            color: #39ff14;
+            box-shadow: 0 10px 30px rgba(57, 255, 20, 0.2);
         }
         
         .main a::before {
@@ -215,7 +321,15 @@
         
         .main a:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(255, 111, 97, 0.4);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 20px 40px rgba(57, 255, 20, 0.3);
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(0, 255, 255, 0.1));
         }
         
         .main a:hover::before {
@@ -251,11 +365,12 @@
             font-weight: 700;
             margin-bottom: 40px;
             text-align: center;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            background: linear-gradient(135deg, #00ffff, #ff0080, #39ff14);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             position: relative;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
         
         .section h2::after {
@@ -266,17 +381,19 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            background: linear-gradient(135deg, #00ffff, #ff0080);
             border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         
         .section h3 {
             font-size: 1.3rem;
             font-weight: 600;
             margin: 30px 0 15px 0;
-            color: #ff6f61;
+            color: #00ffff;
             position: relative;
             padding-left: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         
         .section h3::before {
@@ -287,8 +404,9 @@
             transform: translateY(-50%);
             width: 8px;
             height: 8px;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            background: linear-gradient(135deg, #00ffff, #ff0080);
             border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
         }
         
         .section p, .section ul {
@@ -311,13 +429,14 @@
         }
         
         .section ul li::before {
-            content: '→';
+            content: '▶';
             position: absolute;
             left: 0;
             top: 8px;
-            color: #ff6f61;
+            color: #00ffff;
             font-weight: bold;
             transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
         }
         
         .section ul li:hover {
@@ -326,7 +445,8 @@
         }
         
         .section ul li:hover::before {
-            color: #7877c6;
+            color: #ff0080;
+            text-shadow: 0 0 5px rgba(255, 0, 128, 0.7);
         }
         
         /* Projects Section */
@@ -338,14 +458,16 @@
         }
         
         .project-card {
-            background: rgba(35, 35, 35, 0.8);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 128, 0.3)) 1;
             padding: 30px;
             border-radius: 20px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         
         .project-card::before {
@@ -355,7 +477,13 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, #ff6f61, #7877c6);
+            background: linear-gradient(90deg, #00ffff, #ff0080, #39ff14);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
         }
         
         .project-card::after {
@@ -365,15 +493,17 @@
             right: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 111, 97, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 50%);
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 111, 97, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(0, 255, 255, 0.3);
+            border-image: linear-gradient(135deg, rgba(0, 255, 255, 0.6), rgba(255, 0, 128, 0.6)) 1;
         }
         
         .project-card:hover::after {
@@ -393,11 +523,39 @@
             color: rgba(255, 255, 255, 0.8);
             position: relative;
             z-index: 2;
+            margin-bottom: 20px;
+            flex-grow:1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .project-link {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 128, 0.2));
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            border-radius: 15px;
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-link:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 128, 0.3));
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
         /* Contact Section */
         #contact {
-            background: rgba(20, 20, 20, 0.5);
+            background: rgba(10, 10, 10, 0.5);
         }
         
         .center {
@@ -410,7 +568,7 @@
         }
         
         #contact a {
-            color: #ff6f61;
+            color: #00ffff;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -424,12 +582,13 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #ff6f61, #7877c6);
+            background: linear-gradient(135deg, #00ffff, #ff0080);
             transition: width 0.3s ease;
         }
         
         #contact a:hover {
-            color: #7877c6;
+            color: #ff0080;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
         }
         
         #contact a:hover::after {
@@ -441,8 +600,8 @@
             text-align: center;
             padding: 30px;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(15, 15, 15, 0.8);
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(5, 5, 5, 0.8);
             color: rgba(255, 255, 255, 0.6);
         }
         
@@ -450,8 +609,9 @@
         hr {
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 111, 97, 0.3), rgba(120, 119, 198, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), rgba(255, 0, 128, 0.4), rgba(57, 255, 20, 0.4), transparent);
             margin: 0;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
         
         /* Responsive Design */
@@ -465,10 +625,10 @@
                 position: absolute;
                 top: 100%;
                 right: 0;
-                background: rgba(20, 20, 20, 0.95);
+                background: rgba(5, 5, 5, 0.95);
                 backdrop-filter: blur(20px);
                 border-radius: 0 0 0 20px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(0, 255, 255, 0.3);
                 min-width: 200px;
             }
             
@@ -491,6 +651,21 @@
             .main {
                 padding: 120px 20px 60px;
             }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main a {
+                width: 200px;
+                text-align: center;
+            }
             
             .section {
                 padding: 60px 0;
@@ -502,6 +677,10 @@
             
             .project-card {
                 padding: 25px;
+            }
+
+            .project-links {
+                flex-direction: column;
             }
         }
         
@@ -553,9 +732,23 @@
     </section>
     
     <section class="main" id="main">
-        <h1>Hey, I am Suyash Pandey</h1>
+        <div class="profile-section">
+            <div class="profile-image">
+                <!-- Replace src with your actual image URL -->
+                <!-- <img src="your-photo.jpg" alt="Suyash Pandey"> -->
+                <div class="profile-placeholder">SP</div>
+            </div>
+            <div>
+                <div class="greeting">Hi</div>
+                <h1>Suyash Pandey</h1>
+            </div>
+        </div>
         <p>BTech CSE | Web Developer | Coder</p>
-        <a href="#projects">View Projects</a>
+        <div class="cta-buttons">
+            <a href="#projects" class="btn-primary">View Projects</a>
+            <a href="Suyash_Pandey_Resume.docx" target="_blank" class="btn-secondary">Resume</a>
+            <a href="https://github.com/suyashpandey" target="_blank" class="btn-secondary">GitHub</a>
+        </div>
     </section>
     
     <hr>
@@ -564,13 +757,13 @@
         <div class="container">
             <h2>About Me</h2>
             <p>
-                I am a second-year BTech CSE student with a CGPA of 9.3, currently developing my web development and coding skills. 
+                I am a second-year BTech CSE student with a CGPA of 9.43, currently developing my web development and coding skills. 
                 Passionate about creating innovative solutions and continuously learning new technologies.
             </p>
             <h3>Education</h3>
             <ul>
-                <li>10th - Ann Mary School, Dehradun (95%)</li>
-                <li>12th - Defence Public School, Dehradun (85%)</li>
+                <li>10th - 95%</li>
+                <li>12th - 85%</li>
                 <li>BTech CSE - Manipal University Jaipur</li>
                 <li>9.43 CGPA in 1st year</li>
             </ul>
@@ -600,14 +793,26 @@
                 <div class="project-card">
                     <h3>DocBook-AI</h3>
                     <p>Smart queue and appointment system for doctors and patients with AI-powered scheduling and priority management.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/suyashpandey/docbook-ai" target="_blank" class="project-link">GitHub</a>
+                        <a href="https://docbook-ai-demo.com" target="_blank" class="project-link">Live Demo</a>
+                    </div>
                 </div>
                 <div class="project-card">
                     <h3>ResQNet</h3>
-                    <p>AI disaster response system with intelligent mapping and priority detection for emergency situations.</p>
+                    <p>AI disaster response system with intelligent mapping and priority detection for help during emergency situations.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/suyashpandey/resqnet" target="_blank" class="project-link">GitHub</a>
+                        <a href="https://resqnet-demo.com" target="_blank" class="project-link">Live Demo</a>
+                    </div>
                 </div>
                 <div class="project-card">
                     <h3>Spotify Clone</h3>
                     <p>Responsive music player UI built using HTML and CSS with modern design principles and smooth interactions.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/suyashpandey/spotify-clone" target="_blank" class="project-link">GitHub</a>
+                        <a href="https://spotify-clone-demo.com" target="_blank" class="project-link">Live Demo</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -619,8 +824,9 @@
         <div class="container center">
             <h2>Contact Me</h2>
             <p>Email: <a href="mailto:suyash0108@gmail.com">suyash0108@gmail.com</a></p>
-            <p>Phone: <a href="tel:7078677966">7078677966</a></p>
+            <p>Phone: <a href="tel:7078677966">91707......6</a></p>
             <p>LinkedIn: <a href="https://www.linkedin.com/in/suyash-pandey-a4b8b4326/" target="_blank">Suyash Pandey</a></p>
+            <p>GitHub: <a href="https://github.com/Yash09812" target="_blank">@suyashpandey</a></p>
         </div>
     </section>
     
@@ -690,6 +896,37 @@
                 }, index * 200);
             });
         });
+
+        // Add interactive hover effects for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'rgba(15, 15, 15, 0.9)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'rgba(10, 10, 10, 0.8)';
+            });
+        });
+
+        // Add glitch effect to name on hover
+        const nameElement = document.querySelector('.name');
+        nameElement.addEventListener('mouseenter', function() {
+            this.style.animation = 'glitch 0.3s ease-in-out';
+        });
+
+        // Add CSS for glitch animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes glitch {
+                0% { transform: translateX(0); }
+                20% { transform: translateX(-2px) skew(-2deg); }
+                40% { transform: translateX(2px) skew(2deg); }
+                60% { transform: translateX(-2px) skew(-1deg); }
+                80% { transform: translateX(1px) skew(1deg); }
+                100% { transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
